@@ -64,8 +64,8 @@ public class NewsActivity extends AppCompatActivity {
                 .flatMap(new Function<Integer, ObservableSource<List<NewsResultEntity>>>() {
                     @Override
                     public ObservableSource<List<NewsResultEntity>> apply(Integer integer) throws Exception {
-                        final Observable<NewsEntity> androidNews = getObservable("Android", page);
-                        Observable<NewsEntity> iosNews = getObservable("ios", page);
+                        Observable<NewsEntity> androidNews = getObservable("Android", page);
+                        Observable<NewsEntity> iosNews = getObservable("iOS", page);
                         return Observable.zip(androidNews, iosNews, new BiFunction<NewsEntity, NewsEntity, List<NewsResultEntity>>() {
                             @Override
                             public List<NewsResultEntity> apply(NewsEntity androidEntity, NewsEntity iosEntity) throws Exception {
@@ -108,7 +108,7 @@ public class NewsActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(NewApi.class);
-        return api.getNews(category, 10, page);
+        return api.getNews(category, 20, page);
     }
 
     @Override
