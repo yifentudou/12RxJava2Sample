@@ -11,17 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RetryActivity">
+        <activity android:name=".CombineLatestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PollingActivity">
+        <activity android:name=".RetryActivity">
 
         </activity>
-        <activity android:name=".NewsActivity"></activity>
+        <activity android:name=".PollingActivity"></activity>
+        <activity android:name=".NewsActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".BufferActivity" />
         <activity android:name=".BackgroundActivity" />
