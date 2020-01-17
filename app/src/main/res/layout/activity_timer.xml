@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".TimerActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_timer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="40dp"
+            android:gravity="center"
+            android:onClick="clickTimer"
+            android:text="timer"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_interval"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="40dp"
+            android:gravity="center"
+            android:onClick="clickInterval"
+            android:text="interval"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_interval1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="40dp"
+            android:gravity="center"
+            android:onClick="clickIntervalFirstNo"
+            android:text="intervalFirstNo"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_interval2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="40dp"
+            android:gravity="center"
+            android:onClick="clickIntervalLimitFive"
+            android:text="interval5"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_delay"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="40dp"
+            android:gravity="center"
+            android:onClick="clickDelay"
+            android:text="delay"
+            android:textSize="20sp" />
+    </LinearLayout>
+</ScrollView>
