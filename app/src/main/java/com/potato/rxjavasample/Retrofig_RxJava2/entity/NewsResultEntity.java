@@ -10,6 +10,15 @@ public class NewsResultEntity {
     private String url;
     private boolean used;
     private String who;
+    private boolean isCache;
+
+    public boolean isCache() {
+        return isCache;
+    }
+
+    public void setCache(boolean cache) {
+        isCache = cache;
+    }
 
     public String get_id() {
         return _id;
