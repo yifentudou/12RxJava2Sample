@@ -11,17 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TimerActivity">
+        <activity android:name=".rotation.common.obser.RotationPersistActivity"></activity>
+        <activity android:name=".rotation.common.ProgressActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PublishMergeActivity">
-
-        </activity>
-        <activity android:name=".CombineLatestActivity"></activity>
+        <activity android:name=".TimerActivity"></activity>
+        <activity android:name=".PublishMergeActivity" />
+        <activity android:name=".CombineLatestActivity" />
         <activity android:name=".RetryActivity" />
         <activity android:name=".PollingActivity" />
         <activity android:name=".NewsActivity" />
