@@ -11,15 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".rotation.common.obser.RotationPersistActivity"></activity>
-        <activity android:name=".rotation.common.ProgressActivity">
+        <activity android:name=".rotation.common.obser.RotationTestActivity"
+            android:configChanges  = "orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TimerActivity"></activity>
+        <activity android:name=".rotation.common.obser.RotationPersistActivity">
+
+        </activity>
+        <activity android:name=".rotation.common.ProgressActivity"></activity>
+        <activity android:name=".TimerActivity" />
         <activity android:name=".PublishMergeActivity" />
         <activity android:name=".CombineLatestActivity" />
         <activity android:name=".RetryActivity" />
