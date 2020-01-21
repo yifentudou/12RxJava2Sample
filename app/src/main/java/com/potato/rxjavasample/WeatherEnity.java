@@ -4,34 +4,53 @@ package com.potato.rxjavasample;
  * Created by li.zhirong on 2020/1/20
  */
 public class WeatherEnity {
-
-    private WeatherInfo weatherInfo;
+    private WeatherInfo weatherinfo;
 
     public WeatherInfo getWeatherinfo() {
-        return weatherInfo;
+        return weatherinfo;
     }
 
-    public class WeatherInfo {
+    public void setWeatherinfo(WeatherInfo weatherinfo) {
+        this.weatherinfo = weatherinfo;
+    }
+
+    public static class WeatherInfo {
 
         private String city;
-        private String temperature;
-        private String oritation;
-        private String speed;
+        private String temp;
+        private String WD;
+        private String WS;
 
         public String getCity() {
             return city;
         }
 
+        public void setCity(String city) {
+            this.city = city;
+        }
+
         public String getTemp() {
-            return temperature;
+            return temp;
+        }
+
+        public void setTemp(String temp) {
+            this.temp = temp;
         }
 
         public String getWD() {
-            return oritation;
+            return WD;
+        }
+
+        public void setWD(String WD) {
+            this.WD = WD;
         }
 
         public String getWS() {
-            return speed;
+            return WS;
+        }
+
+        public void setWS(String WS) {
+            this.WS = WS;
         }
     }
 }

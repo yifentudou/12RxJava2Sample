@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -12,9 +13,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -32,31 +30,31 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetStatusAndRetryActivity extends AppCompatActivity {
     private static final String TAG = NetStatusAndRetryActivity.class.getSimpleName();
-    private static final List<Long> CITY_ARRAY = new ArrayList<Long>() {//这个大括号 就相当于我们  new 接口
-        {//这个大括号 就是 构造代码块 会在构造函数前 调用
-            this.add(100010L);//this 可以省略  这里加上 只是为了让读者 更容易理解
-            this.add(100011L);
-            this.add(100012L);
-            this.add(100013L);
-            this.add(100014L);
-        }
-
+    private static final long[] CITY_ARRAY = new long[]{
+            101010100L,
+            101010100L,
+            101010100L,
+            101030100L
     };
     private Thread mLocationThread;
     private PublishSubject<Long> mCityPublish;
     private PublishSubject<Boolean> mNetStatusPublish;
     private BroadcastReceiver mReceiver;
-    private boolean isNetworkConnected;
     private CompositeDisposable mCompositeDisposable;
     private TextView tv_show_result;
+    private long mCacheCity = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_net_status_and_retry);
-        mCompositeDisposable = new CompositeDisposable();
-
         tv_show_result = (TextView) findViewById(R.id.tv_show_result);
+        mCityPublish = PublishSubject.create();
+        mNetStatusPublish = PublishSubject.create();
+        mCompositeDisposable = new CompositeDisposable();
+        registerBroadcast();
+        startUpdateLocation();
+        startUpdateWeather();
     }
 
     // 定位模块
@@ -78,7 +76,7 @@ public class NetStatusAndRetryActivity extends AppCompatActivity {
                             mCityPublish.onNext(cityId);
                         }
                     } catch (InterruptedException e) {
-
+                        e.printStackTrace();
                     }
                 }
             }
@@ -102,11 +100,11 @@ public class NetStatusAndRetryActivity extends AppCompatActivity {
     }
 
     private void saveCacheCity(Long s) {
-
+        mCacheCity = s;
     }
 
     private long getCacheCity() {
-        return 100;
+        return mCacheCity;
     }
 
     /**
@@ -119,12 +117,20 @@ public class NetStatusAndRetryActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (mNetStatusPublish != null) {
-                    mNetStatusPublish.onNext(isNetworkConnected);
+                    mNetStatusPublish.onNext(isNetworkConnected());
                 }
             }
         };
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(mReceiver, filter);
+    }
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
+    }
+    public void unRegisterBroadcast() {
+        unregisterReceiver(mReceiver);
     }
 
     /**
@@ -203,11 +209,20 @@ public class NetStatusAndRetryActivity extends AppCompatActivity {
 
     private Observable<WeatherEnity> getWeather(long cityId) {
         WeatherApi api = new Retrofit.Builder()
-                .baseUrl("http://www.weacher.com.cn")
+                .baseUrl("http://www.weather.com.cn/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build().create(WeatherApi.class);
         return api.getWeather(cityId);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLocationThread.interrupt();
+        unRegisterBroadcast();
+        mCompositeDisposable.clear();
 
     }
 }
